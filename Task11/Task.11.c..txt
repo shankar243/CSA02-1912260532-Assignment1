@@ -1,0 +1,36 @@
+#include <stdio.h>
+
+#define BASE_CHARGE 5000LL
+#define RATE1 225LL
+#define RATE2 450LL
+
+long long compute_bill(unsigned int units)
+{
+    long long paise = BASE_CHARGE;
+
+    if (units > 100 && units <= 200)
+        paise += (long long)(units - 100) * RATE1;
+    else if (units > 200) {
+        paise += 100LL * RATE1;
+        paise += (long long)(units - 200) * RATE2;
+    }
+
+    return paise;
+}
+
+int main(void)
+{
+    unsigned int tests[] = {0, 100, 150, 200, 350};
+    int n = sizeof(tests) / sizeof(tests[0]);
+
+    printf("Final Electricity Billing Design\n");
+
+    for (int i = 0; i < n; i++) {
+        long long bill = compute_bill(tests[i]);
+
+        printf("%u units -> Rs %lld.%02lld\n",
+               tests[i], bill / 100, bill % 100);
+    }
+
+    return 0;
+}
