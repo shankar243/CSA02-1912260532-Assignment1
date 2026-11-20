@@ -1,0 +1,18 @@
+#include <stdio.h>
+
+int main(void)
+{
+    printf("Expression 1: 150 / 100 = %d\n", 150 / 100);
+    printf("Expression 2: (int)3.99 = %d\n", (int)3.99);
+
+    double result = 0.1 + 0.2;
+    printf("Expression 3: 0.1 + 0.2 = %.17f\n", result);
+    printf("Is result exactly 0.3? %s\n",
+           result == 0.3 ? "Yes" : "No");
+
+    long long amount_paise = 16250;
+    printf("Bill: Rs %lld.%02lld\n",
+           amount_paise / 100, amount_paise % 100);
+
+    return 0;
+}
