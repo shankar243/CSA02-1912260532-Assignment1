@@ -1,0 +1,33 @@
+#include <stdio.h>
+
+long compute_bill(unsigned int units)
+{
+    long paise = 5000;
+
+    if (units > 100 && units <= 200)
+        paise += (long)(units - 100) * 225;
+    else if (units > 200) {
+        paise += 100L * 225;
+        paise += (long)(units - 200) * 450;
+    }
+
+    return paise;
+}
+
+int main(void)
+{
+    unsigned int tests[] = {0, 100, 150, 200, 350};
+    int n = sizeof(tests) / sizeof(tests[0]);
+
+    for (int i = 0; i < n; i++) {
+        long bill = compute_bill(tests[i]);
+
+        printf("%u units: Rs %ld.%02ld\n",
+               tests[i], bill / 100, bill % 100);
+    }
+
+    printf("Rollover consumption: %u units\n",
+           (unsigned short)(120 - 65400));
+
+    return 0;
+}
