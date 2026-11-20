@@ -1,0 +1,57 @@
+#include <stdio.h>
+
+#define MAX_READING 65535U
+#define METER_MODULUS 65536U
+#define FIXED_CHARGE_PAISE 5000LL
+#define RATE2_PAISE 225LL
+#define RATE3_PAISE 450LL
+
+long long compute_bill(unsigned int units)
+{
+    long long bill = FIXED_CHARGE_PAISE;
+
+    if (units > 100 && units <= 200)
+        bill += (long long)(units - 100) * RATE2_PAISE;
+    else if (units > 200) {
+        bill += 100LL * RATE2_PAISE;
+        bill += (long long)(units - 200) * RATE3_PAISE;
+    }
+
+    return bill;
+}
+
+int main(void)
+{
+    unsigned int previous, current, units;
+    unsigned int tests[] = {0, 100, 150, 200, 350};
+
+    printf("BILLING TEST TABLE\n");
+
+    for (int i = 0; i < 5; i++) {
+        long long bill = compute_bill(tests[i]);
+        printf("%u units -> Rs %lld.%02lld\n",
+               tests[i], bill / 100, bill % 100);
+    }
+
+    printf("\nEnter previous and current meter readings: ");
+
+    if (scanf("%u %u", &previous, &current) != 2 ||
+        previous > MAX_READING || current > MAX_READING) {
+        printf("Invalid meter reading.\n");
+        return 1;
+    }
+
+    if (current >= previous)
+        units = current - previous;
+    else
+        units = METER_MODULUS - previous + current;
+
+    long long bill = compute_bill(units);
+
+    printf("Units consumed: %u\n", units);
+    printf("Total bill: Rs %lld.%02lld\n",
+           bill / 100, bill % 100);
+
+    return 0;
+}
+
