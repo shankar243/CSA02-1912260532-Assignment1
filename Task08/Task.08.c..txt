@@ -1,0 +1,22 @@
+#include <stdio.h>
+
+
+#define FIXED_CHARGE_PAISE 5000L
+
+
+int main(void)
+{
+unsigned int units = 150;
+long bill = FIXED_CHARGE_PAISE;
+
+
+if (units > 100)
+bill += (long)(units - 100) * 225;
+
+
+printf("Units consumed: %u\n", units); printf("Total bill: Rs %ld.%02ld\n",
+bill / 100, bill % 100);
+
+
+return 0;
+}
